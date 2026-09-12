@@ -24,9 +24,15 @@ async function submitName() {
   console.log(text)
 }
 
-const submit = (nam) => {
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
-  fetch("./name",
+const submit = async (nam) => {
+  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 4000,
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
+  let res = await (await fetch("./name",
     {
     method: "POST",
         body: JSON
@@ -38,7 +44,15 @@ const submit = (nam) => {
         headers: {
           "Content-type": "application/json",
         },
-    })
+    })).json()
+
+  let nambox = document.getElementById("nearest")
+  
+  if (res == null) {
+    nambox.textContent = "Nobody near you!"
+  } else {
+    nambox.textContent = res.nam + " is the nearest person to you"
+  }
 }
 
 function submitLoop(nam) {
