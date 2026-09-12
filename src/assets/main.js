@@ -134,6 +134,7 @@ function updateInfo() {
 setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
+  document.body.replaceChildren([])
     setError(event + " " + event.alpha)
     if(event.webkitCompassHeading) {
         // some devices don't understand "alpha" (especially IOS devices)
@@ -187,7 +188,7 @@ function reqqq() {
     DeviceOrientationEvent.requestPermission()
       .then(permissionState => {
         if (permissionState === 'granted') {
-          window.addEventListener('ondeviceorientation', handleOrientation);
+          window.addEventListener("deviceorientation", handleOrientation);
           document.getElementById("arrownotes").textContent += "permission granted!"
         } else {
           document.getElementById("arrownotes").textContent += "permission not granted!"
