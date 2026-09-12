@@ -140,7 +140,7 @@ const handleOrientation = (event) => {
         heading = event.webkitCompassHeading;
     }
     else{
-        heading = compassHeading(event.alpha, event.beta, event.gamma);
+        heading = event.alpha;//compassHeading(event.alpha, event.beta, event.gamma);
     }
 };
 
@@ -182,6 +182,7 @@ const compassHeading = (alpha, beta, gamma) => {
 
 function reqqq() {
 
+  // https://stackoverflow.com/questions/61145076/devicemotionevent-requestpermission-throws-notallowederror
 DeviceOrientationEvent.requestPermission()
         .then(response => {
             if (response == 'granted') {
