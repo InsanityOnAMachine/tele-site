@@ -140,7 +140,7 @@ const handleOrientation = (event) => {
     heading = event.alpha - 90;//compassHeading(event.alpha, event.beta, event.gamma);
 
     let north = document.getElementById("north");
-    north.style.transform = "rotate(" + heading + "deg)"
+    north.style.transform = "translate(-50%, -0%) rotate(" + heading + "deg)"
     if (last_name == null) {
       return
     } else {
