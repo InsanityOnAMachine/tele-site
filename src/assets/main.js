@@ -1,6 +1,3 @@
-let lat_list = []
-let long_list = []
-
 let NAME = null
 let last_pos = null
 
@@ -10,32 +7,11 @@ let last_coords = null
 const successCallback = async (position) => {
   console.log(position.coords)
   last_pos = position.coords;
-  // redraw()
-};
 
-const errorCallback = (error) => {
-  console.log(error);
-};
-
-async function submitName() {
-  text = document.getElementById("name").value
-  console.log(text)
-  NAME = text
-  submitLoop()
-}
-
-const submit = async () => {
-  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 7000,
-  };
-
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
-
-  if (NAME == null || last_pos == null) {return}
+  if (NAME == null || last_pos == null) {document.getElementById("errors").textContent = Date.now() + " name or last pos is null"; return}
   // https://stackoverflow.com/questions/135448/how-do-i-check-if-an-object-has-a-specific-property-in-javascript
-  if (!Object.hasOwn(last_pos, "latitude")) {return;}
+  // https://stackoverflow.com/questions/1098040/checking-if-a-key-exists-in-a-javascript-object
+  if (! ("latitude" in last_pos)) {document.getElementById("errors").textContent = Date.now() + " no latitude; you sent no data"; return;}
 
   let res = await (await fetch("./name",
     {
@@ -58,6 +34,30 @@ const submit = async () => {
     last_name = res.nam
     last_coords = res.pos
   }
+
+  document.getElementById("errors").textContent = Date.now() + " Sent data!"
+};
+
+const errorCallback = (error) => {
+  console.log(error);
+  document.getElementById("errors").textContent = Date.now() + " " + error.message
+};
+
+async function submitName() {
+  text = document.getElementById("name").value
+  console.log(text)
+  NAME = text
+  submitLoop()
+}
+
+const submit = async () => {
+  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
+  const options = {
+    enableHighAccuracy: true,
+    maximumAge: 5000
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
 }
 
 function submitLoop() {
