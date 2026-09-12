@@ -1,47 +1,25 @@
 let lat_list = []
 let long_list = []
 
+let NAME = null
 let last_pos = 0
 
 let last_name = null
 let last_coords = null
 
-const successCallback = (position) => {
+const successCallback = async (position) => {
   // lat_list.push(position.coords.latitude)
   // long_list.push(position.coords.longitude)
+  if (NAME == null) {return}
   console.log(position.coords)
   last_pos = position.coords;
-  // redraw()
-};
-
-const errorCallback = (error) => {
-  console.log(error);
-};
-
-navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
-
-async function submitName() {
-  let text = document.getElementById("name").value
-  console.log(text)
-  trueSubmit(text)
-  console.log(text)
-}
-
-const submit = async (nam) => {
-  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 4000,
-  };
-
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
   let res = await (await fetch("./name",
     {
     method: "POST",
         body: JSON
         .stringify
         ({
-          text_inpt: nam,
+          text_inpt: NAME,
           geo: last_pos
         }),
         headers: {
@@ -56,15 +34,35 @@ const submit = async (nam) => {
     last_name = res.nam
     last_coords = res.pos
   }
+  // redraw()
+};
+
+const errorCallback = (error) => {
+  console.log(error);
+};
+
+navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+
+async function submitName() {
+  let text = document.getElementById("name").value
+  console.log(text)
+  NAME = text
+  submitLoop()
 }
 
-function submitLoop(nam) {
-  submit(nam)
-  setInterval(submit, 3000, nam)
+const submit = () => {
+  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 2000,
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
 }
 
-function trueSubmit(word) {
-  submitLoop(word)
+function submitLoop() {
+  submit()
+  setInterval(submit, 3000)
 }
 
 // https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
