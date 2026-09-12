@@ -134,7 +134,7 @@ function updateInfo() {
 setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
-  document.body.replaceChildren([])
+    document.getElementById("arrownotes").textContent = event.alpha
     setError(event + " " + event.alpha)
     if(event.webkitCompassHeading) {
         // some devices don't understand "alpha" (especially IOS devices)
