@@ -5,7 +5,7 @@ let last_name = null
 let last_coords = null
 
 // https://stackoverflow.com/questions/61336948/calculating-the-cardinal-direction-of-a-smartphone-with-js
-var heading = 0
+let heading = 0
 
 const successCallback = async (position) => {
   console.log(position.coords)
@@ -134,7 +134,6 @@ function updateInfo() {
 setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
-    document.getElementById("arrownotes").textContent = event.alpha
     setError(event + " " + event.alpha)
     if(event.webkitCompassHeading) {
         // some devices don't understand "alpha" (especially IOS devices)
@@ -144,8 +143,10 @@ const handleOrientation = (event) => {
         heading = event.alpha;//compassHeading(event.alpha, event.beta, event.gamma);
     }
 
+    document.getElementById("arrownotes").textContent = heading
+
     let north = document.getElementById("north");
-    north.style.transform = "rotate(" + (heading) + "deg)"
+    north.style.transform = "rotate(" + heading + "deg)"
     document.getElementById("arrownotes").textContent += north.style.transform
 };
 
