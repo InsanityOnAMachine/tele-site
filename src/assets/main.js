@@ -3,6 +3,9 @@ let long_list = []
 
 let last_pos = 0
 
+let last_name = null
+let last_coords = null
+
 const successCallback = (position) => {
   // lat_list.push(position.coords.latitude)
   // long_list.push(position.coords.longitude)
@@ -45,13 +48,13 @@ const submit = async (nam) => {
           "Content-type": "application/json",
         },
     })).json()
-
-  let nambox = document.getElementById("nearest")
   
   if (res == null) {
-    nambox.textContent = "Nobody near you!"
+    last_name = null
+    last_coords = null
   } else {
-    nambox.textContent = res.nam + " is the nearest person to you"
+    last_name = res.nam
+    last_coords = res.pos
   }
 }
 
@@ -63,6 +66,37 @@ function submitLoop(nam) {
 function trueSubmit(word) {
   submitLoop(word)
 }
+
+// https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
+function getDistanceFromLatLonInFeet(lat1, lon1, lat2, lon2) {
+  var R = 6371 * 1000 * 3; // Radius of the earth in feet
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in feet
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+function updateInfo() {
+  let nambox = document.getElementById("nearest")
+
+  if (last_name == null) {
+    nambox.textContent = "Nobody near you!"
+  } else {
+    nambox.textContent = last_name + " is " + getDistanceFromLatLonInFeet(last_pos.latitude, last_pos.longitude, last_coords.latitude, last_coords.longitude) + " feet away!"
+  }
+}
+
+setInterval(updateInfo, 200)
 
 // const id = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
