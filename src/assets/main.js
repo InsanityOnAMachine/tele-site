@@ -181,7 +181,13 @@ const compassHeading = (alpha, beta, gamma) => {
 };
 
 
-window.addEventListener('deviceorientation', handleOrientation, false);
+DeviceOrientationEvent.requestPermission()
+        .then(response => {
+            if (response == 'granted') {
+                window.addEventListener('deviceorientation', handleOrientation, false)
+            }
+        })
+        .catch(console.error)
 
 // const id = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
