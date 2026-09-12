@@ -127,15 +127,17 @@ function updateInfo() {
     
     nambox.textContent = last_name + " is " + info.distance + " feet away!"
     arrow.style.transform = "rotate(" + (info.bearing + heading) + "deg)"
-    north.style.transform = "rotate(" + (heading) + "deg)"
+    north.style.transform = "rotate(" + heading + "deg)"
   }
 }
 
 setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
+  // HEADING - 90 to account for arrow sprite rotation; it points left in the png file
     document.getElementById("arrownotes").textContent = event.alpha
-    heading = event.alpha;//compassHeading(event.alpha, event.beta, event.gamma);
+    // compensate for rotation of the sprite's png image; it points right
+    heading = event.alpha - 90;//compassHeading(event.alpha, event.beta, event.gamma);
 
     let north = document.getElementById("north");
     north.style.transform = "rotate(" + heading + "deg)"
