@@ -53,38 +53,65 @@ async function submitName() {
   submitLoop()
 }
 
-const submit = async () => {
-  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
-  const options = {
-    enableHighAccuracy: true,
-    maximumAge: 7000
-  };
+async function setLocation(coords) {
+  last_pos = coords
 
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
+  if (NAME == null || last_pos == null) {document.getElementById("errors").textContent = Date.now() + " name or last pos is null"; return}
+  // https://stackoverflow.com/questions/135448/how-do-i-check-if-an-object-has-a-specific-property-in-javascript
+  // https://stackoverflow.com/questions/1098040/checking-if-a-key-exists-in-a-javascript-object
+  if (! ("latitude" in last_pos)) {document.getElementById("errors").textContent = Date.now() + " no latitude; you sent no data"; return;}
+
+  let res = await (await fetch("./name",
+    {
+    method: "POST",
+        body: JSON
+        .stringify
+        ({
+          text_inpt: NAME,
+          geo: last_pos
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+    })).json()
+  
+  if (res == null) {
+    last_name = null
+    last_coords = null
+  } else {
+    last_name = res.nam
+    last_coords = res.pos
+  }
+
+  document.getElementById("errors").textContent = Date.now() + " Sent data!"
 }
+
+function setError(e) {
+  document.getElementById("errors").textContent = Date.now() + error.message
+}
+
+function setAccuracy(a) {
+
+}
+
 
 function submitLoop() {
-  submit()
-  setInterval(submit, 8000)
-}
-
-// https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
-function getDistanceFromLatLonInFeet(lat1, lon1, lat2, lon2) {
-  var R = 6371 * 1000 * 3; // Radius of the earth in feet
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in feet
-  return d || 0;
-}
-
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
+const geoId = navigator.geolocation.watchPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      setLocation(position.coords);
+      setAccuracy(position.coords.accuracy);
+      console.log({ lat, lng }, position.coords.accuracy);
+      // if (position.coords.accuracy > 10) {
+      //   showErrorSnackBar("The GPS accuracy isn't good enough");
+      // }
+    },
+    (e) => {
+      setError(e.message);
+    },
+    { enableHighAccuracy: true, maximumAge: 2000, timeout: 5000 }
+  )
 }
 
 function updateInfo() {

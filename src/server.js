@@ -35,7 +35,8 @@ let geo_data = Object();
 
 app.post('/name', (req, res) => {
   console.log("name req rec'd ", req.body)
-  geo_data[req.body.text_inpt] = req.body.geo
+  if (req.body.geo != {}) {geo_data[req.body.text_inpt] = req.body.geo}
+  if (!req.body.text_inpt in geo_data) {return}
 
   let nearest_key = null
 
