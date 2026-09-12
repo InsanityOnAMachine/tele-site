@@ -143,6 +143,10 @@ const handleOrientation = (event) => {
     else{
         heading = event.alpha;//compassHeading(event.alpha, event.beta, event.gamma);
     }
+
+    let north = document.getElementById("north");
+    north.style.transform = "rotate(" + (heading) + "deg)"
+    document.getElementById("arrownotes").textContent += north.style.transform
 };
 
 const compassHeading = (alpha, beta, gamma) => {
