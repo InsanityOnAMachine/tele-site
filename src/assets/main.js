@@ -54,7 +54,7 @@ const submit = async () => {
   // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
   const options = {
     enableHighAccuracy: true,
-    maximumAge: 5000
+    maximumAge: 7000
   };
 
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
@@ -90,7 +90,9 @@ function updateInfo() {
   if (last_name == null) {
     nambox.textContent = "Nobody near you!"
   } else {
-    nambox.textContent = last_name + " is " + getDistanceFromLatLonInFeet(last_pos.latitude, last_pos.longitude, last_coords.latitude, last_coords.longitude) + " feet away!"
+    // https://github.com/theGreski/AzimuthJS
+    let info = azimuth({lat: last_pos.latitude, lng: last_pos.longitude}, {lat: last_coords.latitude, lng: last_coords.longitude}, {units: "ft"})
+    nambox.textContent = last_name + " is " + info.distance + " feet away!"
   }
 }
 
