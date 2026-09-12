@@ -8,11 +8,12 @@ let last_name = null
 let last_coords = null
 
 const successCallback = async (position) => {
-  // lat_list.push(position.coords.latitude)
-  // long_list.push(position.coords.longitude)
-  if (NAME == null) {return}
+
+  if (NAME == null) {document.body.style.backgroundColor = "red"; return}
+
   console.log(position.coords)
   last_pos = position.coords;
+
   let res = await (await fetch("./name",
     {
     method: "POST",
