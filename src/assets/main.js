@@ -8,11 +8,32 @@ let last_name = null
 let last_coords = null
 
 const successCallback = async (position) => {
-
-  if (NAME == null) {return}
-
   console.log(position.coords)
   last_pos = position.coords;
+  // redraw()
+};
+
+const errorCallback = (error) => {
+  document.body.textContent = JSON.stringify(error);
+};
+
+async function submitName() {
+  text = document.getElementById("name").value
+  console.log(text)
+  NAME = text
+  submitLoop()
+}
+
+const submit = async () => {
+  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 4000,
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
+
+  if (NAME == null) {return}
 
   let res = await (await fetch("./name",
     {
@@ -35,33 +56,11 @@ const successCallback = async (position) => {
     last_name = res.nam
     last_coords = res.pos
   }
-  // redraw()
-};
-
-const errorCallback = (error) => {
-  document.body.textContent = JSON.stringify(error);
-};
-
-async function submitName() {
-  text = document.getElementById("name").value
-  console.log(text)
-  NAME = text
-  submitLoop()
-}
-
-const submit = () => {
-  // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 3000,
-  };
-
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
 }
 
 function submitLoop() {
   submit()
-  setInterval(submit, 4000)
+  setInterval(submit, 5000)
 }
 
 // https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
