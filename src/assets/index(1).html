@@ -16,33 +16,52 @@
                 background-size: 100% 100%;
                 background-position: center;
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                text-align: center;
             }
             #name{
                 border-radius: 15px;
-                border-width: 4px;
+                border-width: 5px;
                 border-color: black;
                 border-style: solid;
-                width: 200px;
-                height: 40px;
-                font-size: 20px;
+                width: 350px;
+                height: 75px;
+                font-size: 30px;
                 background-color: white;
                 text-align: center;
+                color: black;
             }
             #submitButton:hover{
-                box-shadow: 0px 0px 15px 8px black;
+                box-shadow: 0px 0px 14px 9px black;
             }
             #submitButton{
                 box-shadow: none;
                 transition: box-shadow 0.3s ease-in-out;
                 border-radius: 15px;
-                border-width: 4px;
+                border-width: 5px;
+                color: black;
                 border-color: black;
                 border-style: solid;
-                width: 120px;
-                height: 40px;
-                font-size: 22px;
+                width: 200px;
+                height: 75px;
+                font-size: 30px;
                 background-color: grey;
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+            #nearest, #errors{
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                color: black;
+                font-size: 50px;
+            }
+            #arrow{
+                align-self: center;
+            }
+            #t1{
+                font-size: 100px;
+                text-align: center;
+            }
+            #t2{
+                font-size: 60px;
+                text-align: center;
             }
             #httlogo{
                 float: right;
@@ -60,6 +79,9 @@
                 margin-top: 25px;
                 font-size: 25px;
             }
+            #logoer{
+                width: 200px;
+            }
         </style>
         <!-- https://www.joshwcomeau.com/css/center-a-div/ -->
          <!-- <div id="httlogo">
@@ -67,20 +89,15 @@
             <p>Made for Hack the Track</p>
          </div> -->
         <div style = "display: flex; width: 100%; height: 100%; justify-content: center; align-items: center;">
-            <div style = "display: flex; flex-direction: column; transform: scale(2); align-self: center; justify-self: center; align-content: center; justify-content: center;">
-                <img src = "/assets/art/title.png" style = "width: 300px; height: auto">
+            <div style = "align-self: center; justify-self: center; align-content: center; justify-content: center;">
+                <h1 id="t1">Hackathon Website</h1>
+                <h3 id="t2">By Joshua, Sohan, and Aryan</h3>
                 <input id="name" type = "text">
                 <button onclick="submitName();" id="submitButton">Submit</button>
-                <button onclick="reqqq();">calibrate arrow</button>
                 <p id = "nearest">NOBODY NEAR YOU</p>
-                <p id="arrownotes"></p>
-
-                <p id="errors"></p>
-                <div>
-                    <img id = "arrow" src = "/assets/art/arrow.png" style = "position: absolute; width: 100px; height: 100px;">
+                <img id="arrow" src = "/assets/art/arrow.png" style = "width: 100px; height: 100px;"></src>
                 <img id = "north" src = "/assets/art/arrow.png" style = "opacity: 0.3; position: absolute; width: 100px; height: 100px;">
-                </div>
-
+                <p id="errors"></p>
             </div>
         </div>
     </body>
