@@ -27,7 +27,7 @@ async function submitName() {
 const submit = async () => {
   // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
   const options = {
-    enableHighAccuracy: true,
+    enableHighAccuracy: false,
     // timeout: 7000,
   };
 
