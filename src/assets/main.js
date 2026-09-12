@@ -14,7 +14,7 @@ const successCallback = async (position) => {
 };
 
 const errorCallback = (error) => {
-  document.body.textContent = JSON.stringify(error);
+  console.log(error);
 };
 
 async function submitName() {
@@ -75,7 +75,7 @@ function getDistanceFromLatLonInFeet(lat1, lon1, lat2, lon2) {
     ; 
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in feet
-  return d;
+  return d || 0;
 }
 
 function deg2rad(deg) {

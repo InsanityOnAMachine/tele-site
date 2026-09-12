@@ -1,21 +1,59 @@
 <!DOCTYPE html>
-
 <html>
 
-<head></head>
+    <head>
+        <title>Hackathon Website</title>
+    </head>
 
-<body style = "width: 100vw; height: 100vh">
-    <!-- https://www.joshwcomeau.com/css/center-a-div/ -->
-    <div style = "display: flex; width: 100%; height: 100%; justify-content: center; align-items: center;">
-        <div style = "align-self: center; justify-self: center; align-content: center; justify-content: center;">
-            <input id="name" type = "text">
-            <button onclick="submitName();">Submit</button>
+    <body>
+        <style>
+            body{
+                width: 100vw; 
+                height: 100vh;
+                background-image: url('assets/art/bg.png');
+                background-size: 100% 100%;
+                background-position: center;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+            #name{
+                border-radius: 15px;
+                border-width: 4px;
+                border-color: black;
+                border-style: solid;
+                width: 200px;
+                height: 40px;
+                font-size: 20px;
+                background-color: white;
+                text-align: center;
+            }
+            #submitButton:hover{
+                box-shadow: 0px 0px 15px 8px black;
+            }
+            #submitButton{
+                box-shadow: none;
+                transition: box-shadow 0.3s ease-in-out;
+                border-radius: 15px;
+                border-width: 4px;
+                border-color: black;
+                border-style: solid;
+                width: 120px;
+                height: 40px;
+                font-size: 22px;
+                background-color: grey;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+        </style>
+        <!-- https://www.joshwcomeau.com/css/center-a-div/ -->
+        <div style = "display: flex; width: 100%; height: 100%; justify-content: center; align-items: center;">
+            <div style = "align-self: center; justify-self: center; align-content: center; justify-content: center;">
+                <h1>Hackathon Website</h1>
+                <input id="name" type = "text">
+                <button onclick="submitName();" id="submitButton">Submit</button>
+                <p id = "nearest">NOBODY NEAR YOU</p>
+            </div>
         </div>
+    </body>
 
-        <p id = "nearest">NOBODY NEAR YOU</p>
-    </div>
-</body>
-
-<script src = "./js"></script>
+    <script src = "./js"></script>
 
 </html>
