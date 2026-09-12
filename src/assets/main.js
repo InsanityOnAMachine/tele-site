@@ -2,7 +2,7 @@ let lat_list = []
 let long_list = []
 
 let NAME = null
-let last_pos = 0
+let last_pos = null
 
 let last_name = null
 let last_coords = null
@@ -28,12 +28,12 @@ const submit = async () => {
   // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
   const options = {
     enableHighAccuracy: true,
-    timeout: 4000,
+    // timeout: 7000,
   };
 
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
 
-  if (NAME == null) {return}
+  if (NAME == null || last_pos == null) {return}
 
   let res = await (await fetch("./name",
     {
@@ -60,7 +60,7 @@ const submit = async () => {
 
 function submitLoop() {
   submit()
-  setInterval(submit, 5000)
+  setInterval(submit, 8000)
 }
 
 // https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
