@@ -187,7 +187,7 @@ function reqqq() {
     DeviceOrientationEvent.requestPermission()
       .then(permissionState => {
         if (permissionState === 'granted') {
-          window.addEventListener('deviceorientation', handleOrientation);
+          window.addEventListener('ondeviceorientation', handleOrientation);
           document.getElementById("arrownotes").textContent += "permission granted!"
         } else {
           document.getElementById("arrownotes").textContent += "permission not granted!"
