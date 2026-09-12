@@ -9,7 +9,7 @@ let last_coords = null
 
 const successCallback = async (position) => {
 
-  if (NAME == null) {document.body.style.backgroundColor = "red"; return}
+  if (NAME == null) {return}
 
   console.log(position.coords)
   last_pos = position.coords;
@@ -39,13 +39,11 @@ const successCallback = async (position) => {
 };
 
 const errorCallback = (error) => {
-  console.log(error);
+  document.body.textContent = error;
 };
 
-navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
-
 async function submitName() {
-  let text = document.getElementById("name").value
+  text = document.getElementById("name").value
   console.log(text)
   NAME = text
   submitLoop()
@@ -55,7 +53,7 @@ const submit = () => {
   // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
   const options = {
     enableHighAccuracy: true,
-    timeout: 2000,
+    timeout: 3000,
   };
 
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
@@ -63,7 +61,7 @@ const submit = () => {
 
 function submitLoop() {
   submit()
-  setInterval(submit, 3000)
+  setInterval(submit, 4000)
 }
 
 // https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
