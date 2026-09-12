@@ -39,7 +39,7 @@ const successCallback = async (position) => {
 };
 
 const errorCallback = (error) => {
-  document.body.textContent = error;
+  document.body.textContent = JSON.stringify(error);
 };
 
 async function submitName() {
