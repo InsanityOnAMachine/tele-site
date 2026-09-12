@@ -134,6 +134,7 @@ function updateInfo() {
 setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
+    setError(event + " " + event.alpha)
     if(event.webkitCompassHeading) {
         // some devices don't understand "alpha" (especially IOS devices)
         heading = event.webkitCompassHeading;
