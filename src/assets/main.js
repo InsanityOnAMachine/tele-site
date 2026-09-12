@@ -27,13 +27,15 @@ async function submitName() {
 const submit = async () => {
   // https://www.freecodecamp.org/news/how-to-get-user-location-with-javascript-geolocation-api
   const options = {
-    enableHighAccuracy: false,
-    // timeout: 7000,
+    enableHighAccuracy: true,
+    timeout: 7000,
   };
 
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
 
   if (NAME == null || last_pos == null) {return}
+  // https://stackoverflow.com/questions/135448/how-do-i-check-if-an-object-has-a-specific-property-in-javascript
+  if (!Object.hasOwn(last_pos, "latitude")) {return;}
 
   let res = await (await fetch("./name",
     {
