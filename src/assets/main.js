@@ -117,6 +117,7 @@ const geoId = navigator.geolocation.watchPosition(
 function updateInfo() {
   let nambox = document.getElementById("nearest")
   let arrow = document.getElementById("arrow");
+  let north = document.getElementById("north");
 
   if (last_name == null) {
     nambox.textContent = "Nobody near you!"
@@ -126,10 +127,11 @@ function updateInfo() {
     
     nambox.textContent = last_name + " is " + info.distance + " feet away!"
     arrow.style.transform = "rotate(" + (info.bearing - heading) + "deg)"
+    north.style.transform = "rotate(" + (heading) + "deg)"
   }
 }
 
-setInterval(updateInfo, 200)
+setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
     if(event.webkitCompassHeading) {
