@@ -139,7 +139,13 @@ const handleOrientation = (event) => {
 
     let north = document.getElementById("north");
     north.style.transform = "rotate(" + heading + "deg)"
-    document.getElementById("arrownotes").textContent += north.style.transform
+    if (last_name == null) {
+      return
+    } else {
+      // https://github.com/theGreski/AzimuthJS
+      let info = azimuth({lat: last_pos.latitude, lng: last_pos.longitude}, {lat: last_coords.latitude, lng: last_coords.longitude}, {units: "ft"})
+      arrow.style.transform = "rotate(" + (info.bearing - heading) + "deg)"
+    }
 };
 
 const compassHeading = (alpha, beta, gamma) => {
