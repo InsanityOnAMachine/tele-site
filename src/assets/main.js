@@ -183,18 +183,22 @@ const compassHeading = (alpha, beta, gamma) => {
 function reqqq() {
 
   // https://stackoverflow.com/questions/61145076/devicemotionevent-requestpermission-throws-notallowederror
-DeviceOrientationEvent.requestPermission()
-        .then(response => {
-            if (response == 'granted') {
-                window.addEventListener('deviceorientation', handleOrientation, false)
-            } else {
-              setError("denieeeeed")
-            }
-        })
-        .catch(setError("permission of orientation denied"))
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission()
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          window.addEventListener('deviceorientation', handleOrientation);
+          document.getElementById("arrownotes").textContent += "permission granted!"
+        } else {
+          document.getElementById("arrownotes").textContent += "permission not granted!"
+        }
+      })
+      .catch(() => document.getElementById("arrownotes").textContent += "calling function error!");
+  } else {
+    document.getElementById("arrownotes").textContent += "not a function error!"
+  }
 
-      }
-
+}
 // const id = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
 // while (true) {
