@@ -126,7 +126,7 @@ function updateInfo() {
     let info = azimuth({lat: last_pos.latitude, lng: last_pos.longitude}, {lat: last_coords.latitude, lng: last_coords.longitude}, {units: "ft"})
     
     nambox.textContent = last_name + " is " + info.distance + " feet away!"
-    arrow.style.transform = "rotate(" + (info.bearing - heading) + "deg)"
+    arrow.style.transform = "rotate(" + (info.bearing + heading) + "deg)"
     north.style.transform = "rotate(" + (heading) + "deg)"
   }
 }
@@ -144,7 +144,7 @@ const handleOrientation = (event) => {
     } else {
       // https://github.com/theGreski/AzimuthJS
       let info = azimuth({lat: last_pos.latitude, lng: last_pos.longitude}, {lat: last_coords.latitude, lng: last_coords.longitude}, {units: "ft"})
-      arrow.style.transform = "rotate(" + (info.bearing - heading) + "deg)"
+      arrow.style.transform = "rotate(" + (info.bearing + heading) + "deg)"
     }
 };
 
