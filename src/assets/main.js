@@ -180,15 +180,21 @@ const compassHeading = (alpha, beta, gamma) => {
     return compassHeading;
 };
 
+function reqqq() {
 
 DeviceOrientationEvent.requestPermission()
         .then(response => {
             if (response == 'granted') {
                 window.addEventListener('deviceorientation', handleOrientation, false)
+            } else {
+              setError("denieeeeed")
             }
         })
         .catch(setError("permission of orientation denied"))
 
+      }
+
+  reqqq()
 // const id = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
 // while (true) {
