@@ -187,7 +187,7 @@ DeviceOrientationEvent.requestPermission()
                 window.addEventListener('deviceorientation', handleOrientation, false)
             }
         })
-        .catch(console.error)
+        .catch(setError("permission of orientation denied"))
 
 // const id = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
