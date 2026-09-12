@@ -134,16 +134,8 @@ function updateInfo() {
 setInterval(updateInfo, 100)
 
 const handleOrientation = (event) => {
-    setError(event + " " + event.alpha)
-    if(event.webkitCompassHeading) {
-        // some devices don't understand "alpha" (especially IOS devices)
-        heading = event.webkitCompassHeading;
-    }
-    else{
-        heading = event.alpha;//compassHeading(event.alpha, event.beta, event.gamma);
-    }
-
-    document.getElementById("arrownotes").textContent = heading
+    document.getElementById("arrownotes").textContent = event.alpha
+    heading = event.alpha;//compassHeading(event.alpha, event.beta, event.gamma);
 
     let north = document.getElementById("north");
     north.style.transform = "rotate(" + heading + "deg)"
