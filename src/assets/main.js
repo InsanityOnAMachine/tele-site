@@ -194,7 +194,6 @@ DeviceOrientationEvent.requestPermission()
 
       }
 
-  reqqq()
 // const id = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
 // while (true) {
